@@ -43,12 +43,12 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ isHomePage = false, currentHous
   const [houses, setHouses] = useState<HouseScore[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/houses')
+    fetch('https://back-irck.onrender.com/houses')
       .then(res => res.json())
       .then(async (data) => {
         // Para cada casa, buscar entradas
         const enriched = await Promise.all(data.map(async (house: any) => {
-          const res = await fetch(`http://localhost:3001/houses/${house.id}/entries`);
+          const res = await fetch(`https://back-irck.onrender.com/houses/${house.id}/entries`);
           const entries = await res.json();
           return {
             ...house,

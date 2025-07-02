@@ -37,7 +37,7 @@ const AdminPage = () => {
 
 useEffect(() => {
   if (isAuthenticated) {
-    fetch('http://localhost:3001/houses')
+    fetch('https://back-irck.onrender.com/houses')
       .then(res => res.json())
       .then(data => {
         const housesWithColors = data.map((house: any) => ({
@@ -91,7 +91,7 @@ useEffect(() => {
 const house = houses.find(h => h.name === houseName);
 if (!house) return alert('Casa não encontrada');
 
-    fetch(`http://localhost:3001/houses/${house.id}/entries`, {
+    fetch(`https://back-irck.onrender.com/houses/${house.id}/entries`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ houseName, reason: entry.reason, points: entry.points, type: entry.type, addedBy: 'Diretor' })
@@ -111,7 +111,7 @@ if (!house) return alert('Casa não encontrada');
 const house = houses.find(h => h.name === houseName);
 if (!house) return;
 
-fetch(`http://localhost:3001/houses/${house.id}/entry/${entryId}`, { method: 'DELETE' })
+fetch(`https://back-irck.onrender.com/houses/${house.id}/entry/${entryId}`, { method: 'DELETE' })
   .then(res => res.json())
   .then(updatedHouse => {
     updatedHouse.colors = houseColors[updatedHouse.name];
@@ -125,7 +125,7 @@ fetch(`http://localhost:3001/houses/${house.id}/entry/${entryId}`, { method: 'DE
   const resetAllScores = () => {
     if (window.confirm('⚠️ ATENÇÃO: Isso irá resetar TODOS os pontos de TODAS as casas! Tem certeza?')) {
       if (window.confirm('🚨 ÚLTIMA CONFIRMAÇÃO: Esta ação é IRREVERSÍVEL! Continuar?')) {
-        fetch('http://localhost:3001/reset', { method: 'POST' })
+        fetch('https://back-irck.onrender.com/reset', { method: 'POST' })
           .then(() => {
             setHouses(prev => prev.map(house => ({
               ...house,
